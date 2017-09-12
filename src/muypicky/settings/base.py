@@ -25,7 +25,7 @@ SECRET_KEY = 'sm&2ct-))o)-!4=t%b_&+h+myu4!(l@=m35lgbl6ou%*s_f*fi'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['trydjango1-11v2-1-dataengineer007.c9users.io']
 
 
 # Application definition
@@ -55,7 +55,7 @@ ROOT_URLCONF = 'muypicky.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
