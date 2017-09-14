@@ -1,10 +1,33 @@
+{ 
 <!DOCTYPE html>
 <html>
 <head>
 	<title></title>
 </head>
 <body>
-<h1>Hello World</h1>
+<h1>Hello Template World</h1>
 <p>This is an {{html_var}} variable inside html.</p>
+
+<p>
+{% comment %}
+{% if bool_item %}
+{% endcomment %}
+
+{% if num is not None %}
+Random Number {{ num }}
+{% endif %}
+</p>
+
+<p>
+{% for some_item in some_list %}
+    {% if some_item|divisibleby:"2" %}
+        Even number
+    {% endif %}
+    {{ some_item }}</br>
+{% endfor %}
+</p>
+<p>Some Item is: {{ some_item }}</p>
+
+
 </body>
 </html>
