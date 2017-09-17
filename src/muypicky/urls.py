@@ -16,14 +16,15 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from restaurants.views import home, about, contact, moreinfo, ConactView
+from restaurants.views import home, about, contact, moreinfo, ContactView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', home),
     # url(r'^home/$', home),
     url(r'^about/$', about),
-    url(r'^contact/$', contact),
+    # url(r'^contact/$', contact),
     url(r'^more.info/$', moreinfo),
-    url(r'^contact/(?P<id>\d+)/$', ConactView.as_view())
+    # url(r'^contact/(?P<id>\d+)/$', ContactView.as_view()) # pass url kwargs id -> contact/123
+    url(r'contact/$', ContactView.as_view())
 ]

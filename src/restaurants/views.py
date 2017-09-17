@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 import random
 from django.views import View
+# from django.views.generic import TemplateView
 
 
 # Create your views here.
@@ -35,6 +36,8 @@ def moreinfo(request):
     context = {}
     return render(request, "more.info.html", context) 
     
-class ConactView(View):
+class ContactView(View):
     def get(self, request, *args, **kwargs):
-        return
+        # print(kwargs) #url id 
+        context = {}
+        return render(request, "contact.html", context) 
