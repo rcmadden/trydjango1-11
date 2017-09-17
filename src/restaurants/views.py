@@ -28,13 +28,4 @@ class HomeView(TemplateView):
         } 
         return context
         
-        
-class AboutView(TemplateView):
-    template_name = 'about.html'
-    
-class MoreInfoView(TemplateView):
-    template_name = 'more.info.html'
-
-class ContactView(TemplateView):
-    template_name = 'contact.html'
     
