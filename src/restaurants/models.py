@@ -7,4 +7,7 @@ class RestaurantLocation(models.Model):
      category   = models.CharField(max_length=120, null=True, blank=True)
      timestamp  = models.DateTimeField(auto_now=True)
      updated    = models.DateTimeField(auto_now=True)
+     # replaces object name in django admin with field name
+     def __str__(self):
+         return self.name
      
