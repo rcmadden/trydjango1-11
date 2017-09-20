@@ -16,15 +16,7 @@ def restaruant_listview(request):
     return render(request, template_name, context)
 
 class RestaurantListView(ListView):
-    queryset = RestaurantLocation.objects.all()
-    template_name = 'restaurants/restaruants_list.html'
-
-    
-class SearchRestaurantListView(ListView):
-    template_name = 'restaurants/restaruants_list.html'
-    
     def get_queryset(self):
-        print(self.kwargs)
         slug = self.kwargs.get("slug")
         if slug:
             queryset = RestaurantLocation.objects.filter(
@@ -32,10 +24,8 @@ class SearchRestaurantListView(ListView):
                 Q(category__icontains=slug) 
                 )
         else:
-            queryset = RestaurantLocation.objects.none()
+            queryset = RestaurantLocation.objects.all()
         return queryset
+    
 
-# class AsianFusionRestaurantListView(ListView):
-#     queryset = RestaurantLocation.objects.filter(category__contains='asian fusion')
-#     template_name = 'restaurants/restaruants_list.html'
     
