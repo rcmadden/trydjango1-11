@@ -20,16 +20,15 @@ from django.views.generic import TemplateView
 from restaurants.views import (
     restaruant_listview,
     RestaurantListView,
-    MexianRestaurantListView,
-    AsianFusionRestaurantListView
+    SearchRestaurantListView,
     )
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', TemplateView.as_view(template_name='home.html')), 
     url(r'^restaurants/$', RestaurantListView.as_view()),
-    url(r'^restaurants/mexican/$', MexianRestaurantListView.as_view()),
-    url(r'^restaurants/asian/$', AsianFusionRestaurantListView.as_view()),
+    url(r'^restaurants/(?P<slug>\w+)/$', SearchRestaurantListView.as_view()),
+    # url(r'^restaurants/asian/$', AsianFusionRestaurantListView.as_view()),
     url(r'^about/$', TemplateView.as_view(template_name='about.html')),
     url(r'^more.info/$', TemplateView.as_view(template_name='more.info.html')),
     url(r'contact/$', TemplateView.as_view(template_name='contact.html'))
