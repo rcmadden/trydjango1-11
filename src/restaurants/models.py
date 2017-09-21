@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models.signals import pre_save, post_save
+
+from .utils import unique_slug_generator
 
 # Create your models here.
 class RestaurantLocation(models.Model):
@@ -18,4 +21,23 @@ class RestaurantLocation(models.Model):
      @property
      def title(self):
           return self.name  # so we can use obj.title
+
+
+# two ways of saving using signals pre or post with passing then saving the instance       
+def rl_pre_save_receiver(sender, instance, *args, **kwargs):
+     print('saving ... ')
+     print(instance.timestamp)
+     # if not instance.slug:
+     #      instance.name = 'Another New Name'
+     #      instance.slug = unique_slug_generator(instance)
           
+def rl_post_save_receiver(sender, instance, created, *args, **kwargs):
+     print('saved')
+     print(instance.timestamp)
+     if not instance.slug:
+          instance.slug = unique_slug_generator(instance)
+          instance.save()
+          
+pre_save.connect(rl_pre_save_receiver, sender=RestaurantLocation)
+     
+post_save.connect(rl_post_save_receiver, sender=RestaurantLocation)
