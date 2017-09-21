@@ -2,9 +2,9 @@
 
 {% block head_title %}Restaurants Details | {{ block.super }}{% endblock head_title %}
 
+<h1>Restaurant Details</h1>
 
 {% block content %}
-<h1>Restaurant Details</h1>
 <h1>{{ object.title }}<small>: {{ object.category }}</small></h1>
 <p>{{ object.location }} </p>
 <p>{{ object.timestamp }} Updated: {{ object.updated|timesince }} ago </p>
