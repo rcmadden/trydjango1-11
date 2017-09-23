@@ -1,11 +1,18 @@
+from django.conf import settings
 from django.db import models
 from django.db.models.signals import pre_save, post_save
 
 from .utils import unique_slug_generator
 from .validators import validate_category
 
+# foreign keys: https://docs.djangoproject.com/en/1.11/ref/models/fields/#foreignkey
+# user models: https://docs.djangoproject.com/en/1.11/ref/contrib/auth/
+
+User = settings.AUTH_USER_MODEL
+
 # Create your models here.
 class RestaurantLocation(models.Model):
+     owner      = models.ForeignKey(User) # class_instance.model_set.all() #Django Models Unleashed to understand how these work
      name       = models.CharField(max_length=120)
      location   = models.CharField(max_length=120, null=True, blank=True)
      category   = models.CharField(max_length=120, null=True, blank=True, validators=[validate_category])
