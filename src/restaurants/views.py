@@ -11,6 +11,7 @@ from .models import RestaurantLocation
 
 # FunctionBasedViews - django login_required decorator https://docs.djangoproject.com/en/1.11/topics/auth/default/#django.contrib.auth.decorators.login_required
 # ClassBasedViews - django login_required mixins  https://docs.djangoproject.com/en/1.11/topics/auth/default/#the-loginrequired-mixin
+
 # Create your views here.
 @login_required()
 def restaurant_createview(request):
