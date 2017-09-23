@@ -53,6 +53,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'muypicky.urls'
+LOGIN_URL = '/login/' # set default to login and let the view override
 
 TEMPLATES = [
     {
