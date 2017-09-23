@@ -26,6 +26,9 @@ class RestaurantLocation(models.Model):
      def __str__(self):
          return self.name
      
+     def get_absolute_url(self):
+          return reverse('restuarnats:detail', kwargs={'slug':self.slug})
+     
      @property
      def title(self):
           return self.name  # so we can use obj.title
