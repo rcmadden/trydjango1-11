@@ -4,6 +4,14 @@
 
 {% block content %}
 <h1>{{ user.username }}</h1>
+<!--{{ request.user.is_following.all }}-->
+<!--replace these 4 lines with logic in view get_context_data()-->
+<!--{% if user.profile in request.user.is_following.all %}-->
+    <!--Is Following-->
+<!--{% endif %}-->
+<!--<p>{% include 'profiles/snippet/follow_form.html' with username=user.username is_following=True %}</p> put logic in view -->
+<p>{% include 'profiles/snippet/follow_form.html' with username=user.username is_following=is_following %}</p>
+
 <form class='form' method='GET' action='.'>
 <input type='text' placeholder="Search.." name='q' value='{{ request.GET.q }}'>
 <button class='btn btn-default' type='submit'>Search</button>

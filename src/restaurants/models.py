@@ -12,6 +12,20 @@ from .validators import validate_category
 
 User = settings.AUTH_USER_MODEL
 #RestaurantLocation.objects.all().search(query) or (something).search
+
+class ProfileManager(models.Manager):
+     def toggle_follow(self, request_user, username_to_toggle):
+          profile_ = Profile.objects.get(user__username__iexact=username_to_toggle)
+          user = request_user
+          is_following = False
+          if user in profile_.followers.all():
+               profile_.followers.remove(user)
+          else:
+               profile_.followers.add(user)
+               is_following = True
+          return profile_, is_following
+     
+     
 class RestaurantLocationQuerySet(models.query.QuerySet):
      def search(self, query):
           if query:
