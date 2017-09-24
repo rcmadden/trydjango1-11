@@ -1,40 +1,43 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block head_title %}{{ user.username }} | {{ block.super }}{% endblock head_title %}
-
+{% block head_title %}{{ user.username }} | {{ block.super}}{% endblock head_title %}
 
 {% block content %}
 <h1>{{ user.username }}</h1>
+<form class='form' method='GET' action='.'>
+<input type='text' placeholder="Search.." name='q' value='{{ request.GET.q }}'>
+<button class='btn btn-default' type='submit'>Search</button>
+</form>
 <hr/>
-{% if user.item_set.all.exists %}
-    {% for rest in user.restaurantlocation_set.all %}
-        <div class='row'>
-        <!--<div class='col-sm-12' style='border: 1px solid #ccc; border-radius: 5px; margin-bottom: 15px;'>-->
-        <!--same as above with bootstrap 3-->
-        <div class='thumbnail'>
-        <!--bootstrap 4-->
-        <!--<div class='card card-default'>-->
-        </style><h4>{{ rest.title }}</h4>  
-            <p>{{ rest.location }} | {{ rest.category }}</p>
+{% if locations %}
+{% for rest in locations %}
+    <div class='row'>
+    <div class='col-sm-12'>
+        <div class='thumbnail'> 
+            <h4>{{ rest.title }}</h4>
+            <p><a href='{{ request.path}}?q={{ rest.location }}'>{{ rest.location }}</a> | 
+            <a href='{{ request.path}}?q= {{ rest.category }}'> {{ rest.category }}</a>
+           
+            </p>
             <p>
-                 <!--<b>Items</b>-->
             <ul>
                 {% for item in rest.item_set.all %}
-                <!--<li style='margin-bottom: 15px;'>{{ item.name }}<br/>-->
-                <!--    {% for ing in item.get_contents %}-->
-                <!--    <span style='padding: 2px 4px; margin-right:4px;'>{{ ing }}</span>-->
-                <!--    {% endfor %}-->
-                <!--</li>-->
-                <li style='margin-bottom: 15px;'><b>{{ item.name }}</b><br/>
-                    {{ item.contents }}
-                </li>
+                    <li style='margin-bottom: 15px;'><b>{{ item.name }}</b><br/>
+                        {% for ing in item.get_contents %}
+                            <a href='{{ request.path}}?q={{ ing}}'>{{ ing}}</a>
+                        {% endfor %}
+                    </li>
                 {% endfor %}
             </ul>
             </p>
         </div>
-        </div>
-    {% endfor %}
+    </div>
+    </div>
+
+{% endfor %}
+
 {% else %}
 <p class='lead'>No Items Found</p>
 {% endif %}
+
 {% endblock %}

@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.db.models import Q
 from django.db.models.signals import pre_save, post_save
 from django.core.urlresolvers import reverse
 
@@ -10,6 +11,26 @@ from .validators import validate_category
 # user models: https://docs.djangoproject.com/en/1.11/ref/contrib/auth/
 
 User = settings.AUTH_USER_MODEL
+#RestaurantLocation.objects.all().search(query) or (something).search
+class RestaurantLocationQuerySet(models.query.QuerySet):
+     def search(self, query):
+          if query:
+               return self.filter(
+                  Q(name__icontains=query)|
+                  Q(location__icontains=query)|
+                  Q(category__icontains=query)|
+                  Q(item__name__icontains=query)|
+                  Q(item__contents__icontains=query)
+                  ).distinct()
+          return self
+
+class RestaurantLocationManager(models.Manager):
+     def get_queryset(self):
+          return RestaurantLocationQuerySet(self.model, using=self._db)
+          
+     def search(self, query): #RestaurantLocation.objects.search()
+        return self.get_queryset().search(query)
+        
 
 # Create your models here.
 class RestaurantLocation(models.Model):
@@ -21,7 +42,8 @@ class RestaurantLocation(models.Model):
      updated    = models.DateTimeField(auto_now=True)
      # slug       = models.SlugField(unique=True)
      slug       = models.SlugField(null=True, blank=True)
-     
+      
+     objects = RestaurantLocationManager() # add Model.objects.all() to model
      
      # replaces object name in django admin with field name
      def __str__(self):
