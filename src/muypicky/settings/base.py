@@ -56,6 +56,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'muypicky.urls'
 LOGIN_URL = '/login/' # set default to login and let the view override
+LOGOUT_REDIRECT_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
 
 TEMPLATES = [
     {

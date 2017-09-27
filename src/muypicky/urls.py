@@ -18,18 +18,20 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 
 # source:  class LoginView https://docs.djangoproject.com/en/1.11/topics/auth/default/#django.contrib.auth.views.LoginView
-# from django.contrib.auth import views as auth_views
-from django.contrib.auth.views import LoginView
-# from django.contrib.auth import views as auth_views
-from menus.views import HomeView
-from profiles.views import ProfileFollowToggle
 
+from django.contrib.auth.views import LoginView, LogoutView
+# https://docs.djangoproject.com/en/1.11/topics/auth/default/#django.contrib.auth.views.LogoutView
+
+from menus.views import HomeView
+from profiles.views import ProfileFollowToggle, RegisterView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # url(r'^$', TemplateView.as_view(template_name='home.html'), name='home'),
     url(r'^$', HomeView.as_view(), name='home'),
+    url(r'^register/$', RegisterView.as_view(), name='register'),
     url(r'^login/$', LoginView.as_view(), name='login'),
+    url(r'^logout/$', LogoutView.as_view(), name='logout'),
     url(r'^profile-follow/$', ProfileFollowToggle.as_view(), name='follow'),
     url(r'^u/', include('profiles.urls', namespace='profiles')),
     url(r'^items/', include('menus.urls', namespace='menus')),
