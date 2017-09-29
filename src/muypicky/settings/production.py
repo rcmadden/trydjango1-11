@@ -5,7 +5,9 @@ For more information on this file, see
 https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
-heroku setup source: https://www.codingforentrepreneurs.com/blog/go-live-with-django-project-and-heroku/
+heroku setup source: 
+https://www.youtube.com/watch?time_continue=6&v=4DggiEkbCTg
+https://www.codingforentrepreneurs.com/blog/go-live-with-django-project-and-heroku/
 """
 
 import os
@@ -18,16 +20,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'jx32b_z(*4w+#)t^nz3)0rm3nq(tcj&3##klo73m76(x7%3z)b%85nxrm!'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'jx32b_z(*4w+#)t^nz3)0rm3nq(tcj&3##klo73m76(x7%3z)b%85nxrm!')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['muypicky-clone.heroku.com']
+ALLOWED_HOSTS = ['muypicky-clone.herokuapp.com']
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'youremail@gmail.com' 
-EMAIL_HOST_PASSWORD = 'yourpassword'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Your Name <you@email.com>'
@@ -94,6 +96,11 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+import dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+# DATABASES['default']['CONN_MAX_AGE'] = 500
 
 
 # Password validation
