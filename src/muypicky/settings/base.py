@@ -133,6 +133,16 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static_in_env'),
+    ]
+
+VENV_PATH = os.path.dirname(BASE_DIR)
+
+STATIC_ROOT = os.path.join(VENV_PATH, 'static_root') # set for AWS
+# MEDIA_ROOT = os.path.join(VENV_PATH, 'media_root') # for user uploads see srvup
+
+
 LOGOUT_REDIRECT_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 

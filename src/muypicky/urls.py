@@ -2,7 +2,8 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic import TemplateView
 
-
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView, LogoutView
 
 from menus.views import HomeView
@@ -22,3 +23,6 @@ urlpatterns = [
     url(r'^about/$', TemplateView.as_view(template_name='about.html'), name='about'),
     url(r'^contact/$', TemplateView.as_view(template_name='contact.html'), name='contact'),
 ]
+
+if settings.DEBUG:
+    urlpatterns  += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
