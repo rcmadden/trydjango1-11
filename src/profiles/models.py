@@ -5,6 +5,8 @@ from django.db.models.signals import post_save
 from django.core.urlresolvers import reverse
 from .utils import code_generator
 
+from muypicky.settings.base import ALLOWED_HOSTS
+
 User = settings.AUTH_USER_MODEL
 
 class ProfileManager(models.Manager):
@@ -28,7 +30,6 @@ class Profile(models.Model):
     timestamp         = models.DateTimeField(auto_now_add=True)
     updated           = models.DateTimeField(auto_now=True)
     
-    
     objects = ProfileManager()
 
     def __str__(self):
@@ -40,13 +41,15 @@ class Profile(models.Model):
             self.activation_key = code_generator() #gen key
             self.save()
             path_ = reverse('activate', kwargs={"code": self.activation_key})
+            # full_path = "https://muypicky-clone.herokuapp.com" + path_
+            full_path = ALLOWED_HOSTS[0] + path_
             subject = 'Activate Account'
             from_email = settings.DEFAULT_FROM_EMAIL
-            message = f'Activate your account here: {path_}'
+            message = f'Activate your account here: {full_path}'
             recipient_list = [self.user.email]
-            html_message = f'<p>Activate your account here: {path_}</p>'
+            html_message = f'<p>Activate your MuyPicky-Clone account here: {full_path} </p>'
             print(html_message)
-            # send_mail = send_mail(subject, 
+            # sent_mail = send_mail(subject, 
             #                       message, 
             #                       from_email, 
             #                       recipient_list, 
