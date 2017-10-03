@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 from django.core.urlresolvers import reverse
 from .utils import code_generator
 
-from muypicky.settings.base import ALLOWED_HOSTS
+# from muypicky.settings.base import ALLOWED_HOSTS
 
 User = settings.AUTH_USER_MODEL
 
@@ -42,20 +42,27 @@ class Profile(models.Model):
             self.save()
             path_ = reverse('activate', kwargs={"code": self.activation_key})
             # full_path = "https://muypicky-clone.herokuapp.com" + path_
-            full_path = ALLOWED_HOSTS[0] + path_
+            full_path = settings.ALLOWED_HOSTS[0] + path_
             subject = 'Activate Account'
             from_email = settings.DEFAULT_FROM_EMAIL
             message = f'Activate your account here: {full_path}'
             recipient_list = [self.user.email]
-            html_message = f'<p>Activate your MuyPicky-Clone account here: {full_path} </p>'
-            print(html_message)
-            # sent_mail = send_mail(subject, 
-            #                       message, 
-            #                       from_email, 
-            #                       recipient_list, 
-            #                       fail_silently=False, 
-            #                       html_message=html_message)
-            sent_mail = False
+            html_message = f'<p>Activate your MuyPicky-Clone account here: <a href="https://{full_path}">Activate MuyPicky-Clone Account</a> </p>'
+            # print('***************************************')
+            # print(html_message)
+            # print('***************************************')
+            # print('subject: ' + subject, 
+            #       'message: ' + message, 
+            #       'from_email: ' + from_email, 
+            #       'recipient_list: ', recipient_list) 
+            # print('***************************************')      
+            sent_mail = send_mail(subject, 
+                                  message, 
+                                  from_email, 
+                                  recipient_list, 
+                                  fail_silently=False, 
+                                  html_message=html_message)
+            # sent_mail = False
             return sent_mail
 
 def post_save_user_receiver(sender, instance, created, *args, **kwargs):

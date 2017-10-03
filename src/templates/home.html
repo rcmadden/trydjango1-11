@@ -3,29 +3,34 @@
 {% block head_title %}Welcome || {{ block.super }} {% endblock head_title %}
 
 {% block content %}
-
-<h1>Home</h1>
-<!--<h3>{{ block.super }}</h3>-->
-<p>This is an {{html_var}} variable inside html.</p>
-
-<p>
-{% comment %}
-{% if bool_item %}
-{% endcomment %}
-
-{% if num is not None %}
-Random Number {{ num }}
+{% if not request.user.is_authenticated %}
+    <div class='row'>
+        <div class='col-sm-6 col-sm-offset-3 text-center'>
+            <p class='lead'>
+                Share your pickiness with your friends. Add restaurants and add menu items just the way you like so they order right for you every time.<br/>
+            <a href='{% url "register" %}'>Join us</a>
+            </p>
+            <hr/>
+        </div>
+    </div>
 {% endif %}
-</p>
-
-<p>
-{% for some_item in some_list %}
-    {% if some_item|divisibleby:"2" %}
-        Even number
-    {% endif %}
-    {{ some_item }}</br>
+<!--<div class='row'>-->
+<!--    <div class='col-sm-6 col-sm-offset-3'>-->
+<!--        <h3>Recent Items</h3>-->
+<!--        {% for obj in object_list %}-->
+<!--        <div class='thumbnail'> -->
+<!--            <h3><a href='{% url "profiles:detail" username=obj.user.username %}'>{{ obj.user.username }}</a></h3>-->
+<!--            <h4>{{ obj.name }}</h4>-->
+<!--            <p><a href='{% url "profiles:detail" username=obj.user.username %}?q={{ obj.restaurant.title }}'>{{ obj.restaurant.title }}</a>| <a href='{% url "profiles:detail" username=obj.user.username %}?q={{ obj.restaurant.location }}'>{{ obj.restaurant.location }}</a> | <a href='{% url "profiles:detail" username=obj.user.username %}?q={{ obj.restaurant.category }}'>{{ obj.restaurant.category }}</a></p>-->
+<!--            <p>-->
+<!--            <b>{{ obj.name }}:</b> with-->
+<!--             {% for ing in obj.get_contents %}-->
+<!--                <a href='{% url "profiles:detail" username=obj.user.username %}?q={{ ing}}'>{{ ing}}</a>-->
+<!--            {% endfor %}-->
+<!--            </p>-->
+<!--        </div>-->
 {% endfor %}
-</p>
-<p>Some Item is: {{ some_item }}</p>
+    </div>
+</div>
 
 {% endblock %}

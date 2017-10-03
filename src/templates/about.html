@@ -4,8 +4,13 @@
 
 
 {% block content %}
-<h1>About</h1>
-{% include 'snippets/sidebar.html' %}
-
-<p>This is an {{html_var}} variable inside html.</p>
+<div class='row'>
+        <div class='col-sm-6 col-sm-offset-3 text-center'>
+            <h1>About</h1>
+            <p class='lead'>
+            This is a clone of the <a href="https://www.codingforentrepreneurs.com/projects/try-django-111/">joincfe.com</a>
+            tutorial project MuyPicky.com.  I've added a few tweaks to extend my learning. 
+            </p>
+            <hr/>
+        </div>
 {% endblock %}

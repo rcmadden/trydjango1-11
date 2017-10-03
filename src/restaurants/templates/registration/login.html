@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% comment %}source: https://docs.djangoproject.com/en/1.11/topics/auth/default/#django.contrib.auth.views.LoginView{% endcomment %}
 
 {% block content %}
 
@@ -7,7 +6,7 @@
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
 
-{% if next %}
+{% if next != "/" and next is not None %}
     {% if user.is_authenticated %}
     <p>Your account doesn't have access to this page. To proceed,
     please login with an account that has access.</p>
@@ -19,23 +18,9 @@
 <form method="post" action="{% url 'login' %}">
 {% csrf_token %}
 {{ form.as_p }}
-<!--<table>-->
-<!--<tr>-->
-<!--    <td>{{ form.username.label_tag }}</td>-->
-<!--    <td>{{ form.username }}</td>-->
-<!--</tr>-->
-<!--<tr>-->
-<!--    <td>{{ form.password.label_tag }}</td>-->
-<!--    <td>{{ form.password }}</td>-->
-<!--</tr>-->
-<!--</table>-->
 
 <input type="submit" value="login" />
 <input type="hidden" name="next" value="{{ next }}" />
 </form>
-
-{# Assumes you setup the password_reset view in your URLconf #}
-{% comment %} https://docs.djangoproject.com/en/1.11/topics/auth/default/#django.contrib.auth.views.PasswordResetView
-<!--<p><a href="{% url 'password_reset' %}">Lost password?</a></p>-->{% endcomment %}
 
 {% endblock %}

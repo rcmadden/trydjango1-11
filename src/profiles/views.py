@@ -26,7 +26,7 @@ def activate_user_view(request, code=None, *args, **kwargs):
                 user_.save()
                 profile.ativated=True
                 profile.activation_key=None
-                profile.save()
+                profile.save() 
                 return redirect("/login")
     return redirect("/login")
 
