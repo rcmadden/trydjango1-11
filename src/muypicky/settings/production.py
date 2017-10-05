@@ -11,7 +11,9 @@ https://www.codingforentrepreneurs.com/blog/go-live-with-django-project-and-hero
 """
 
 import os
-from .secret import *
+# from .secret import *
+# for heroku
+COMPRESS_OFFLINE = os.environ.get('COMPRESS_OFFLINE', True)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
