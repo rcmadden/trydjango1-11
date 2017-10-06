@@ -9,9 +9,9 @@ heroku setup source:
 https://www.youtube.com/watch?time_continue=6&v=4DggiEkbCTg
 https://www.codingforentrepreneurs.com/blog/go-live-with-django-project-and-heroku/
 """
-
 import os
-# from .secret import *
+from muypicky.aws.conf import *
+
 # for heroku
 COMPRESS_OFFLINE = os.environ.get('COMPRESS_OFFLINE', True)
 
@@ -31,13 +31,14 @@ DEBUG = False
 ALLOWED_HOSTS = ['muypicky-clone.herokuapp.com']
 
 EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_ADDRESS = os.environ.get('EMAIL_ADDRESS')
 EMAIL_HOST_USER = EMAIL_ADDRESS 
-EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = FROM_EMAIL
+DEFAULT_FROM_EMAIL = os.environ.get('FROM_EMAIL')
 
-ADMINS = ADMIN
+ADMINS = os.environ.get('ADMIN')
 MANAGERS = ADMINS
 
 
