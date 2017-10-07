@@ -7,10 +7,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 heroku setup source: 
 https://www.youtube.com/watch?time_continue=6&v=4DggiEkbCTg
-https://www.codingforentrepreneurs.com/blog/go-live-with-django-project-and-heroku/
+https://www.codingforentrepreneurs.com/blog/go-live-with-django-project-and-heroku/ 
+aws policy settings:
+https://www.codingforentrepreneurs.com/blog/s3-static-media-files-for-django/
 """
 import os
-from muypicky.aws.conf import *
+from aws.conf import *
 
 # for heroku
 COMPRESS_OFFLINE = os.environ.get('COMPRESS_OFFLINE', True)
@@ -51,9 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'storages',
-
     'menus',
     'profiles',
     'restaurants',
@@ -142,9 +142,16 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
+# https://www.codingforentrepreneurs.com/projects/angular-django/aws-s3-static-files-django/
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static_root')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+    ]
+    
 LOGOUT_REDIRECT_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
