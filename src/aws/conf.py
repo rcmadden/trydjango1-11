@@ -11,9 +11,12 @@ DEFAULT_FILE_STORAGE = 'aws.utils.MediaRootS3BotoStorage'
 STATICFILES_STORAGE = 'aws.utils.StaticRootS3BotoStorage'
 AWS_STORAGE_BUCKET_NAME = 'muypicky-clone-bucket'
 # aws region set to:
-S3DIRECT_REGION = 'us-west-2'
+# S3DIRECT_REGION = 'us-west-2'
 # url region
 # S3DIRECT_REGION = 'us-east-1'
+# downloaded: https://s3.console.aws.amazon.com/s3/home?region=us-east-2
+S3DIRECT_REGION = 'us-east-2'
+
 S3_URL = '//%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 MEDIA_URL = '//%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
 MEDIA_ROOT = MEDIA_URL
